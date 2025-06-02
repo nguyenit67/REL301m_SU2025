@@ -721,12 +721,22 @@ Policy iteration consists of two distinct steps: evaluation and improvement.
 
 <img title="" src="file:///D:/Disk/Computer/Pictures/Typedown/dac15803-10d2-4744-bfb2-f0086a74d759.png" alt="dac15803-10d2-4744-bfb2-f0086a74d759" data-align="center" style="zoom:50%;">
 
-### Generalized Policy Iteration
+### Generalized Policy Iteration (GPI)
 
 #### Value Iteration
 
 Value Iteration for estimating p~p*
 
 <img title="" src="file:///D:/Disk/Computer/Pictures/Typedown/2c77e425-8795-4a5e-8e69-812065a7fb0d.png" alt="2c77e425-8795-4a5e-8e69-812065a7fb0d" style="zoom:50%;" data-align="center">
+
+##### Alternatives
+
+* **Monte Carlo method**: Estimates state values by averaging multiple returns, but requires many samples due to randomness.
+
+* **Brute-force search**: Tries every possible deterministic policy to find the best one, but is extremely slow due to exponential complexity.
+
+##### Flexibility of the Policy Iteration Framework
+
+**Asynchronous dynamic programming** approaches **must ensure all states get updated** at some point to maintain accuracy.
 
 
