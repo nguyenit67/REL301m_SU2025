@@ -48,6 +48,7 @@ ACTIONS = [ACTION_UP, ACTION_DOWN, ACTION_LEFT, ACTION_RIGHT]
 
 def step(state, action):
     i, j = state
+    # get next state with affect from wind strength (minus by WIND[j]) while keeping the next state inside the gridworld
     if action == ACTION_UP:
         return [max(i - 1 - WIND[j], 0), j]
     elif action == ACTION_DOWN:
@@ -101,9 +102,10 @@ def linear_epsilon_decay(step, epsilon_start, epsilon_end, decay_steps):
 
 
 def epsilon_greedy_policy(q_value, state, epsilon):
-    if np.random.binomial(1, epsilon) == 1:
+    # get 1 sample from a Binomial distribution of 1 trials and success probability of p to decide whether to explore or exploit
+    if np.random.binomial(1, epsilon) == 1:  # explore (draw 1 success sample with probability = epsilon)
         action = np.random.choice(ACTIONS)
-    else:
+    else:  # exploit (fail to draw a success sample with probability = 1 - epsilon)
         values_ = q_value[state[0], state[1], :]
         action = np.random.choice([action_ for action_, value_ in enumerate(values_) if value_ == np.max(values_)])
     return action
