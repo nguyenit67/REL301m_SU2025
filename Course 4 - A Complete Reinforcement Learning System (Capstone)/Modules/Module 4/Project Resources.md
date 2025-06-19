@@ -36,14 +36,14 @@ System identification is the process of building a model of a system from data, 
 -   Agnostic system identification methods aim to provide strong guarantees even when the true system is not in the assumed model class.
 -   Iterative approaches alternate between data collection (exploration) and model updating, leading to improved policies over time.
 
-::: mermaid
+```mermaid
 flowchart TD
 A["Collect Data"] --> B["Fit Model"]
 B --> C["Plan/Optimize Policy"]
 C --> D["Deploy Policy"]
 D --> E["Collect More Data"]
 E --> B
-:::
+```
 
 ---
 
@@ -68,7 +68,7 @@ $$
 \bar{r}_\pi = \lim_{T \to \infty} \frac{1}{T} \mathbb{E}_\pi \left[ \sum_{t=1}^T R_t \right]
 $$
 
-::: mermaid
+```mermaid
 flowchart TD
 A["User State (Sensors, Context)"] --> B["RL Agent"]
 B --> C{"Intervene?"}
@@ -77,5 +77,4 @@ C -- No --> E["Wait/Observe"]
 D --> F["Observe Outcome"]
 E --> F
 F --> B
-:::
-
+```

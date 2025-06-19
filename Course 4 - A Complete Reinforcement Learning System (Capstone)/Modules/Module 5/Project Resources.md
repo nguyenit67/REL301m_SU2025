@@ -76,13 +76,14 @@ Experience replay is a technique that improves data efficiency and stability in 
 -   **Prioritized Experience Replay:** Samples more important or surprising experiences more frequently, further improving learning speed.
 
 **Mermaid Diagram:**
-::: mermaid
+
+```mermaid
 flowchart TD
 A["Agent interacts with Environment"] --> B["Store (s, a, r, s') in Replay Buffer"]
 B --> C["Sample Mini-Batch from Buffer"]
 C --> D["Update Agent (e.g., Neural Network)"]
 D --> A
-:::
+```
 
 ---
 
@@ -100,10 +101,11 @@ The Collect-and-Infer framework is designed to improve data efficiency in RL by 
 -   **Applications:** Robotics, industrial control, and any setting where real-world data collection is expensive or slow.
 
 **Mermaid Diagram:**
-::: mermaid
+
+```mermaid
 flowchart TD
 A["Collect Data in Environment"] --> B["Store in Experience Database"]
 B --> C["Infer/Update Policy or Value Function"]
 C --> D["Deploy Updated Policy"]
 D --> A
-:::
+```
