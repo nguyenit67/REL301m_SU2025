@@ -59,29 +59,53 @@ class IHT:
 
 
 def hash_coords(coordinates, m, read_only=False):
+    # Check if m is an instance of IHT (Index Hash Table) class
     if isinstance(m, IHT):
+        # Use the IHT's get_index method to get a unique index for the coordinate tuple
+        # This handles collision detection and management within the hash table
         return m.get_index(tuple(coordinates), read_only)
+    # Check if m is an integer (represents table size for simple hashing)
     if isinstance(m, int):
+        # Use Python's built-in hash function and modulo operation for simple hashing
+        # This creates a hash index within the range [0, m-1]
         return hash(tuple(coordinates)) % m
+    # If m is None, return coordinates directly without hashing
     if m is None:
+        # Return the original coordinates (useful for debugging or testing)
         return coordinates
 
 
 def tiles(iht_or_size, num_tilings, floats, ints=None, read_only=False):
     """returns num-tilings tile indices corresponding to the floats and ints"""
+    # Initialize ints as empty list if not provided
     if ints is None:
+        # Default to empty list for integer features
         ints = []
+    # Quantize floating point values by multiplying by number of tilings and taking floor
+    # This creates discrete bins for continuous state variables
     qfloats = [floor(f * num_tilings) for f in floats]
+    # Initialize list to store tile indices for all tilings
     tiles = []
+    # Create one tile for each tiling (offset grid)
     for tiling in range(num_tilings):
+        # Calculate offset multiplier (each tiling gets different offset pattern)
         tilingX2 = tiling * 2
+        # Start coordinates with tiling number (ensures different tilings have different coordinates)
         coords = [tiling]
+        # Initialize offset accumulator with current tiling number
         b = tiling
+        # Process each quantized float value
         for q in qfloats:
+            # Add offset to quantized value and divide by num_tilings for tiling displacement
+            # This creates the overlapping grid structure characteristic of tile coding
             coords.append((q + b) // num_tilings)
+            # Accumulate offset for next dimension (creates diagonal displacement pattern)
             b += tilingX2
+        # Append any integer features to coordinates (these don't need quantization)
         coords.extend(ints)
+        # Hash the coordinates to get tile index and add to tiles list
         tiles.append(hash_coords(coords, iht_or_size, read_only))
+    # Return list of tile indices, one for each tiling
     return tiles
 
 
